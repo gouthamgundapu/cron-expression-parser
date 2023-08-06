@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+mainClassName = "org.deliveroo.cronexpressionparser.CronExpressionParser"
+group = 'org.deliveroo'
+version = '1.0-SNAPSHOT'
+
+
+sourceSets.main.java.srcDirs = ['src/main/']
+sourceSets.test.java.srcDirs = ['src/test/']
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.deliveroo.cronexpressionparser.CronExpressionParser'
+        )
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        displayGranularity 1
+        showStackTraces = true
+        exceptionFormat = 'full'
+        events "STARTED", "PASSED", "FAILED", "SKIPPED"
+    }
+}
